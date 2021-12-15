@@ -53,6 +53,7 @@ mic.addEventListener('click', async () => {
 }
 
 function onstart() {
-  micFclick();
   document.querySelector('.mic').removeAttribute("onclick");
+  micFclick();
+  document.querySelector('.mic').click();
 }
