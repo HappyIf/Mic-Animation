@@ -37,7 +37,7 @@ mic.addEventListener('click', async () => {
         analyser.getByteFrequencyData(dataArray);
         const level = Math.max.apply(null, dataArray);
         document.querySelector('#level span').textContent = level;
-        mic.style.setProperty('--border', `${level / 5}px`);
+        mic.style.setProperty('border', `${level / 5}px solid grey`);
         requestAnimationFrame(log);
       });
     } catch (err) {
