@@ -1,3 +1,4 @@
+function micFclick() {
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let distortion = audioCtx.createWaveShaper();
 let gainNode = audioCtx.createGain();
@@ -49,3 +50,9 @@ mic.addEventListener('click', async () => {
     });
   }
 });
+}
+
+function onstart() {
+  micFclick();
+  document.querySelector('.mic').removeAttribute("onclick");
+}
