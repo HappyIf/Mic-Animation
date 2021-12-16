@@ -1,5 +1,5 @@
-function micFclick() {
-let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function micClick() {
+    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let distortion = audioCtx.createWaveShaper();
 let gainNode = audioCtx.createGain();
 let biquadFilter = audioCtx.createBiquadFilter();
@@ -26,10 +26,11 @@ mic.addEventListener('click', async () => {
       tracks = stream.getTracks();
       source = audioCtx.createMediaStreamSource(stream);
       source.connect(distortion);
+
       distortion.connect(biquadFilter);
       biquadFilter.connect(gainNode);
       gainNode.connect(analyser);
-      analyser.connect(audioCtx.destination);
+      //analyser.connect(audioCtx.destination);
 
       requestAnimationFrame(function log() {
         let bufferLength = analyser.frequencyBinCount;
@@ -37,7 +38,7 @@ mic.addEventListener('click', async () => {
         analyser.getByteFrequencyData(dataArray);
         const level = Math.max.apply(null, dataArray);
         document.querySelector('#level span').textContent = level;
-        mic.style.setProperty('border', `${level / 5}px`);
+        mic.style.setProperty('--border', `${level / 5}px`);
         requestAnimationFrame(log);
       });
     } catch (err) {
@@ -50,10 +51,11 @@ mic.addEventListener('click', async () => {
     });
   }
 });
+
 }
 
 function onstart() {
   document.querySelector('.mic').removeAttribute("onclick");
-  micFclick();
+  micClick();
   document.querySelector('.mic').click();
 }
